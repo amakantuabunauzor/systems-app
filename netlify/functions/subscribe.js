@@ -12,7 +12,11 @@ exports.handler = async (event) => {
     return { statusCode: 400, body: 'Missing subscription' };
   }
 
-  const store = getStore('systems-data');
+  const store = getStore({
+  name: 'systems-data',
+  siteID: process.env.BLOBS_SITE_ID,
+  token: process.env.BLOBS_TOKEN
+});
   const subs = (await store.get('subscriptions', { type: 'json' })) || [];
   const idx = subs.findIndex((s) => s.subscription.endpoint === subscription.endpoint);
   const record = { subscription, timezone: timezone || 'Africa/Lagos', updatedAt: new Date().toISOString() };

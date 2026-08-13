@@ -49,7 +49,11 @@ const handler = async () => {
     return { statusCode: 200, body: 'not configured' };
   }
 
-  const store = getStore('systems-data');
+  const store = getStore({
+  name: 'systems-data',
+  siteID: process.env.BLOBS_SITE_ID,
+  token: process.env.BLOBS_TOKEN
+});
   const tasksData = (await store.get('tasks', { type: 'json' })) || defaultTasks();
   const subs = (await store.get('subscriptions', { type: 'json' })) || [];
   if (!subs.length) return { statusCode: 200, body: 'no subscriptions' };

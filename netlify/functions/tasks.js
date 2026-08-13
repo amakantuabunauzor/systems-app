@@ -2,7 +2,11 @@ const { getStore } = require('@netlify/blobs');
 const { defaultTasks } = require('./_defaults');
 
 exports.handler = async (event) => {
-  const store = getStore('systems-data');
+  const store = getStore({
+  	name: 'systems-data',
+  	siteID: process.env.BLOBS_SITE_ID,
+  	token: process.env.BLOBS_TOKEN
+});
 
   if (event.httpMethod === 'GET') {
     const data = await store.get('tasks', { type: 'json' });
