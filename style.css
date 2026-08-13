@@ -358,6 +358,11 @@ button, input, select, textarea {
   align-items: flex-end;
   z-index: 50;
 }
+
+.sheet[hidden] {
+  display: none;
+}
+
 @media (min-width: 640px) {
   .sheet { align-items: center; justify-content: center; }
 }
