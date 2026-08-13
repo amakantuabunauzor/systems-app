@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Systems — Life OS</title>
+<meta name="description" content="Your five life systems: morning, weekly, evening, finance, and habit audit — in one editable, notifying dashboard." />
+<link rel="manifest" href="manifest.json" />
+<meta name="theme-color" content="#12161B" />
+<link rel="apple-touch-icon" href="icons/icon-192.png" />
+<link rel="icon" href="icons/icon-192.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div class="app-shell">
+
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">
+        <span class="dot d1"></span><span class="dot d2"></span><span class="dot d3"></span><span class="dot d4"></span><span class="dot d5"></span>
+      </span>
+      <span class="brand-name">SYSTEMS</span>
+    </div>
+    <div class="topbar-right">
+      <span class="streak" id="streakDisplay">0-day streak</span>
+      <button class="icon-btn" id="settingsBtn" aria-label="Settings">⚙</button>
+    </div>
+  </header>
+
+  <!-- status strip: 5 indicator lights, one per system, reflecting today's completion -->
+  <div class="status-strip" id="statusStrip" aria-label="Today's system status"></div>
+
+  <nav class="tabbar" id="tabbar">
+    <button class="tab active" data-tab="today">Today</button>
+    <button class="tab" data-tab="morning">Morning</button>
+    <button class="tab" data-tab="weekly">Weekly</button>
+    <button class="tab" data-tab="evening">Evening</button>
+    <button class="tab" data-tab="finance">Finance</button>
+    <button class="tab" data-tab="audit">Audit</button>
+  </nav>
+
+  <main id="main" class="main"></main>
+
+  <div class="install-banner" id="installBanner" hidden>
+    <span>Install this on your phone for the full experience — home screen icon + notifications.</span>
+    <div class="install-actions">
+      <button class="btn btn-ghost" id="dismissInstall">Not now</button>
+      <button class="btn btn-primary" id="installBtn">Install</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- Settings panel -->
+<div class="sheet" id="settingsSheet" hidden>
+  <div class="sheet-inner">
+    <div class="sheet-header">
+      <h2>Settings</h2>
+      <button class="icon-btn" id="closeSettings" aria-label="Close">✕</button>
+    </div>
+
+    <section class="settings-block">
+      <h3>Notifications</h3>
+      <p class="dim">Get pushed a reminder at each task's scheduled time, even when the app is closed.</p>
+      <button class="btn btn-primary" id="enableNotifBtn">Enable notifications</button>
+      <p class="notif-status" id="notifStatus"></p>
+    </section>
+
+    <section class="settings-block">
+      <h3>Timezone</h3>
+      <p class="dim">Used to fire notifications at the right local time.</p>
+      <select id="timezoneSelect"></select>
+    </section>
+
+    <section class="settings-block">
+      <h3>Data</h3>
+      <p class="dim">Your tasks and settings sync to your Systems server. Daily check-offs stay on this device.</p>
+      <button class="btn btn-ghost" id="resetDefaultsBtn">Reset all tasks to defaults</button>
+    </section>
+
+    <section class="settings-block">
+      <h3>About</h3>
+      <p class="dim">Built from your five life-systems documents: Morning Routine, Weekly Business, Evening Routine, Finance Automation, and Habit Systems Audit.</p>
+    </section>
+  </div>
+</div>
+
+<!-- Task edit modal -->
+<div class="sheet" id="taskSheet" hidden>
+  <div class="sheet-inner">
+    <div class="sheet-header">
+      <h2 id="taskSheetTitle">Edit task</h2>
+      <button class="icon-btn" id="closeTaskSheet" aria-label="Close">✕</button>
+    </div>
+    <form id="taskForm">
+      <label class="field">
+        <span>Title</span>
+        <input type="text" id="taskTitle" required maxlength="120" />
+      </label>
+      <label class="field">
+        <span>Time <span class="dim">(leave blank for no fixed time)</span></span>
+        <input type="time" id="taskTime" />
+      </label>
+      <label class="field">
+        <span>Repeats</span>
+        <select id="taskRecurrence">
+          <option value="daily">Every day</option>
+          <option value="weekdays">Weekdays only</option>
+          <option value="saturday">Saturdays</option>
+          <option value="monthly">Monthly (1st)</option>
+        </select>
+      </label>
+      <label class="field-row">
+        <input type="checkbox" id="taskNotify" />
+        <span>Send a notification at this time</span>
+      </label>
+      <label class="field">
+        <span>Notes <span class="dim">(optional)</span></span>
+        <textarea id="taskNotes" maxlength="240" rows="2"></textarea>
+      </label>
+      <div class="sheet-actions">
+        <button type="button" class="btn btn-danger" id="deleteTaskBtn">Delete</button>
+        <button type="submit" class="btn btn-primary">Save</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="toast" id="toast" hidden></div>
+
+<script src="app.js"></script>
+</body>
+</html>
