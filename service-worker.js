@@ -1,4 +1,4 @@
-const CACHE_NAME = 'systems-cache-v1';
+const CACHE_NAME = 'systems-cache-v2';
 const CORE_ASSETS = [
   '/', '/index.html', '/style.css', '/app.js', '/manifest.json',
   '/icons/icon-192.png', '/icons/icon-512.png'
